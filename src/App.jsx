@@ -12,7 +12,8 @@ function App() {
   const [countries, setCountries] = useState([])  
   const [theme, setTheme] = useState("light")
   const [searchInput, setSearchInput] = useState(false)
-  const [filtered, setFiltered] = useState("")
+  const [filtered, setFiltered] = useState(false)
+  const [region, setRegion] = useState([])
 
 
 
@@ -25,8 +26,6 @@ function App() {
     setTheme((currentTheme)=> (currentTheme === "light" ? "dark" : "light"))
   }
 
-
-
   useEffect( () => {
    fetch('https://restcountries.com/v3.1/all')
    .then(response => 
@@ -38,11 +37,18 @@ function App() {
       );
       });
 
+  
+
+      
+      
+
   return (
     <div className="App" id={theme}>
       <button onClick={toggleTheme}>Change theme</button>
       <Search ></Search>
-      <Filter callBack={callBackFilter}></Filter>
+      <Filter  callBack={callBackFilter}></Filter>
+      <h2>hello</h2>
+      
       { 
       
       searchInput === false ? countries.map((post, i) => {

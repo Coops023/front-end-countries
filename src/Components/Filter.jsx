@@ -3,9 +3,17 @@ import React, { useEffect, useState } from 'react'
 export default function Filter(props) {
 
     
-    const changeHandler = (e) =>{
+    const changeHandler = async (e) =>{
         const value = e.target.value
-        props.callBack(value)
+      await props.callBack(value)
+       fetch('https://restcountries.com/v3.1/region/africa')
+       .then(response => 
+        response.json())
+       .then(data => 
+            {
+              console.log(data)
+            }
+          );
     }
     
   
