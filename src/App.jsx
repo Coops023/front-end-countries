@@ -3,6 +3,7 @@ import './App.css';
 import React, {useState, useEffect, createContext } from 'react';
 import Card from './Components/Card';
 import Search from './Components/Search';
+import Filter from './Components/Filter';
 
 export const ThemeContext = createContext(null)
 
@@ -11,9 +12,13 @@ function App() {
   const [countries, setCountries] = useState([])  
   const [theme, setTheme] = useState("light")
   const [searchInput, setSearchInput] = useState(false)
+  const [filtered, setFiltered] = useState("")
 
-  const callback =(data)=>{
-    data === "" ? setSearchInput(false) : setSearchInput(true)
+
+
+   const callBackFilter = (data)=>{
+    console.log("callback from filter comp" ,data)
+    setFiltered(data)
   }
 
   const toggleTheme = () =>{
@@ -22,8 +27,8 @@ function App() {
 
 
 
-  useEffect(() => {
-    fetch('https://restcountries.com/v3.1/all')
+  useEffect( () => {
+   fetch('https://restcountries.com/v3.1/all')
    .then(response => 
     response.json())
    .then(data => 
@@ -31,13 +36,13 @@ function App() {
           setCountries(data)
         }
       );
-}, []);
+      });
 
   return (
     <div className="App" id={theme}>
       <button onClick={toggleTheme}>Change theme</button>
-      <Search inputChange={callback}  countriesList={countries} ></Search>
-
+      <Search ></Search>
+      <Filter callBack={callBackFilter}></Filter>
       { 
       
       searchInput === false ? countries.map((post, i) => {
