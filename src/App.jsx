@@ -1,69 +1,24 @@
 
-import './App.css';
+
 import React, {useState, useEffect, createContext } from 'react';
+import HomeScreen from "./pages/home-screen"
 import Card from './Components/Card';
 import Search from './Components/Search';
 import Filter from './Components/Filter';
+import { Link, Route, Routes } from 'react-router-dom';
+import CountryDetails from './pages/country-details';
 
 export const ThemeContext = createContext(null)
 
 
-function App() {
-  const [countries, setCountries] = useState([])  
-  const [theme, setTheme] = useState("light")
-  const [searchInput, setSearchInput] = useState(false)
-  const [filtered, setFiltered] = useState(false)
-  const [region, setRegion] = useState([])
 
-
-
-   const callBackFilter = (data)=>{
-    console.log("callback from filter comp" ,data)
-    setFiltered(data)
-  }
-
-  const toggleTheme = () =>{
-    setTheme((currentTheme)=> (currentTheme === "light" ? "dark" : "light"))
-  }
-
-  useEffect( () => {
-   fetch('https://restcountries.com/v3.1/all')
-   .then(response => 
-    response.json())
-   .then(data => 
-        {
-          setCountries(data)
-        }
-      );
-      });
-
-  
-
-      
-      
-
+export default function App() {
   return (
-    <div className="App" id={theme}>
-      <button onClick={toggleTheme}>Change theme</button>
-      <Search ></Search>
-      <Filter  callBack={callBackFilter}></Filter>
-      <h2>hello</h2>
-      
-      { 
-      
-      searchInput === false ? countries.map((post, i) => {
-         return (
-            <Card className="post-card" key={i} countryData={post}>
-              
-            </Card>
-         );
-      }) : ""
-      
-      }
-      </div>
-   
-  );
+    <Routes>
+      <Route path='/' element={<HomeScreen/>}></Route>
+      <Route path='/countryDetails/:name' element={<CountryDetails/>}></Route>
+    </Routes>
+  )
 }
 
-export default App;
 

@@ -5,13 +5,13 @@ export default function Filter(props) {
     
     const changeHandler = async (e) =>{
         const value = e.target.value
-      await props.callBack(value)
-       fetch('https://restcountries.com/v3.1/region/africa')
+        
+       fetch(`https://restcountries.com/v3.1/region/${value}`)
        .then(response => 
         response.json())
        .then(data => 
             {
-              console.log(data)
+              props.callBack(data)
             }
           );
     }
@@ -26,6 +26,7 @@ export default function Filter(props) {
         <option value="Asia">Asia</option>
         <option value="Europe">Europe</option>
         <option value="Africa">Africa</option>
+        <option value="America">America</option>
         </select>
     </div>
   )
