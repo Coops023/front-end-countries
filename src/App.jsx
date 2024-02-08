@@ -12,11 +12,10 @@ export const ThemeContext = createContext(null)
 function App() {
   const [countries, setCountries] = useState([])  
   const [theme, setTheme] = useState("light")
-  const [searchedCountryList, setSearchedCountryList] = useState([])
+  const [searchQuery, setSearchQuery] = useState("")
   const [region, setRegion] = useState([])
   const [showFilteredCountries, setShowFilteredCountries] = useState(false)
   const [showAllCountries, setShowAllCountries] = useState(true)
-  const [showSearchedCountries, setShowSearchedCountries] = useState(false)
   const id = 2
 
 
@@ -36,7 +35,7 @@ function App() {
 // the whole search function doesnt work well, wondering if it should search when i submit rather than filtering the array as i enter into the input
   const callBackSearch = (data)=>{
     console.log("data from search",data)
-    setCountries(data)
+    setSearchQuery(data)
   }
 
   useEffect( () => {
@@ -75,22 +74,9 @@ function App() {
        }) : <></>
       }
 
-      { 
-      showSearchedCountries === true ?  searchedCountryList.map((post, i) => {
-        return (
-          <Link to={`/countryDetails/${post.name.common}`}>
-           <Card  key={i} className="post-card"  countryData={post}>
-             
-           </Card>
-           </Link>
-           
-          
-        );
-     }) : <></>
 
-      }
           { 
-      showAllCountries === true ?  countries.map((post, i) => {
+      showAllCountries === true ?  countries.filter((country => country.name.common.toLowerCase().includes(searchQuery))).map((post, i) => {
         return (
           <Link to={`/countryDetails/${post.name.common}`}>
            <Card  key={i} className="post-card"  countryData={post}>
