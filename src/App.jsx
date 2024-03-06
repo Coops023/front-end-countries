@@ -52,6 +52,7 @@ function App() {
       <Search callback={callBackSearch} countriesList={countries}></Search>
       <Filter callBack={callBackFilter}></Filter>
       <h2>hello</h2>
+
       <Link to={`/countryDetails/${id}`}>country details</Link>
       <a href="error">error page test</a>
 
@@ -66,7 +67,6 @@ function App() {
       ) : (
         <></>
       )}
-
       {showAllCountries === true ? (
         countries
           .filter((country) =>

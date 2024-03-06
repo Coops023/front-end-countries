@@ -12,9 +12,11 @@ export default function Search(props) {
     props.callback();
   };
 
+
   useEffect(() => {
     props.callback(searchQuery);
   }, [searchQuery]);
+
 
   return (
     <div>
