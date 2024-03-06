@@ -1,9 +1,9 @@
-#light{
-  background-color:#FAFAFA;
+#light {
+  background-color: #fafafa;
 }
 
-#dark{
-  background-color:#61dafb;
+#dark {
+  background-color: #61dafb;
 }
 
 .App {
@@ -12,8 +12,6 @@
   min-width: 100vh;
   margin: 0 auto;
 }
-
-
 
 .App-header {
   background-color: #282c34;
