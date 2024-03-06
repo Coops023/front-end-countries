@@ -20,10 +20,6 @@ useEffect(()=>{
      props.callback(searchQuery)
 }, [searchQuery])
 
-    
-
-   
-
   return (
     <div >
         

@@ -16,7 +16,6 @@ function App() {
   const [region, setRegion] = useState([])
   const [showFilteredCountries, setShowFilteredCountries] = useState(false)
   const [showAllCountries, setShowAllCountries] = useState(true)
-  const id = 2
 
 
   const toggleTheme = () =>{
@@ -24,15 +23,12 @@ function App() {
   }
 
    const callBackFilter = (data)=>{
-    // console.log("callback from filter comp" ,data)
     setRegion(data)
     setShowAllCountries(false)
     setShowFilteredCountries(true)
   }
 
 
-// im having an issue here when the search bar is empty i want the original list of countries i call from the API to show
-// the whole search function doesnt work well, wondering if it should search when i submit rather than filtering the array as i enter into the input
   const callBackSearch = (data)=>{
     console.log("data from search",data)
     setSearchQuery(data)
@@ -47,12 +43,10 @@ function App() {
           setCountries(data)
          
         }
-      );
+      )
+      .catch(error => console.error('Error fetching data:', error))
       }, []);
 
-      // console.log("all countries", showAllCountries)
-      // console.log("region", showFilteredCountries)
-      // console.log("searched", showSearchedCountries)
 
   return (
     <div className="App" id={theme}>
@@ -60,8 +54,7 @@ function App() {
       <Search callback={callBackSearch} countriesList={countries} ></Search>
       <Filter  callBack={callBackFilter}></Filter>
       <h2>hello</h2>
-      <Link to={`/countryDetails/${id}`}>country details</Link>
-      <a href="error">error page test</a>
+
       
       {
         showFilteredCountries === true ?  region.map((post, i) => {
@@ -73,21 +66,16 @@ function App() {
           );
        }) : <></>
       }
-
-
-          { 
+      { 
       showAllCountries === true ?  countries.filter((country => country.name.common.toLowerCase().includes(searchQuery))).map((post, i) => {
         return (
           <Link to={`/countryDetails/${post.name.common}`}>
            <Card  key={i} className="post-card"  countryData={post}>
              
            </Card>
-           </Link>
-           
-          
+           </Link> 
         );
      }) : <></>
-
       }
       </div>
    

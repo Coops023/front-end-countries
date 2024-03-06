@@ -15,11 +15,19 @@ export default function CountryDetails() {
           console.log(data)
           setCountry(data)
          }
-       );
-       console.log('i fire once')
-       }, []);
+       ).catch(error => {
+        console.log("Error fetching country data", error)
+       })
+       
+       }, [name]);
 
   return (
-    <div>country-details</div>
+    
+ <div>
+  
+    {country ?  <div>country</div> : <p>Loading</p> }
+  
+ </div>
+ 
   )
 }
