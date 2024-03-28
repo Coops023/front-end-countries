@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useRef } from 'react';
+import { useCallback } from 'react';
 
-export default function Search(props) {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleInputChange = (e) => {
-    console.log(e.target.value);
-    const searchTerm = e.target.value;
-    setSearchQuery(searchTerm);
-    //test to check if input field is empty as im having an issue with resetting the list when it is empty
-    props.callback();
-  };
-
-
-  useEffect(() => {
-    props.callback(searchQuery);
-  }, [searchQuery]);
-
+export default function Search({ query, onChange }) {
+  const handleChange = useCallback((e) => {
+    const { value } = e.target;
+    onChange(value);
+  }, []);
 
   return (
     <div>
-      <input onChange={handleInputChange} placeholder="search countries" />
+      <input
+        onChange={handleChange}
+        placeholder="search countries"
+        value={query}
+      />
     </div>
   );
 }

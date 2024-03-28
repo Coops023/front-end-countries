@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
-export default function Filter(props) {
-  const changeHandler = async (e) => {
-    const value = e.target.value;
-
-    fetch(`https://restcountries.com/v3.1/region/${value}`)
-      .then((response) => response.json())
-      .then((data) => {
-        props.callBack(data);
-      });
-  };
+export default function Filter({ continent, onChangeContinent }) {
+  const handleChange = useCallback(
+    (e) => {
+      const { value } = e.target;
+      onChangeContinent(value);
+    },
+    [onChangeContinent],
+  );
 
   return (
     <div>
-      <label for="Countries">Choose a country:</label>
+      <label htmlFor="Countries">Choose a country:</label>
 
-      <select onChange={changeHandler} name="Countries" id="Countries">
+      <select
+        name="Countries"
+        id="Countries"
+        value={continent}
+        onChange={handleChange}
+      >
+        <option value="all">World</option>
         <option value="Oceania">Oceania</option>
         <option value="Asia">Asia</option>
         <option value="Europe">Europe</option>
